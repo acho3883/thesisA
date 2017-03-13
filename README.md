@@ -12,9 +12,10 @@ Meeting 1   15/03/2017
 4. Do I need to analyse how well Meatball works?
 5. How was the data collected? Rate it across a scale? Objective or subjective question?
 6. What meetings were recorded? Did everyone in the meeting participate (aka host and customers)? Were they recorded in all/most meetings of the same type?
-7. Is the data from SQL database? Are they clean/no repetitions? What is its capacity?
-8. How can I access the data for research purposes?
-9. Are there any specific ways on how I need to present my data?
+7. Is the data from SQL database? Are they clean/no repetitions? How do you remove unclean data? What are they?
+8. What is its capacity? How frequent are data collected? Still on-going?
+9. How can I access the data for research purposes?
+10. Are there any specific ways on how I need to present my data?
 
 // Descriptive Analytics, which use data aggregation and data mining to provide insight into the past and answer: “What has happened?”
 // Predictive Analytics, which use statistical models and forecasts techniques to understand the future and answer: “What could happen?”
