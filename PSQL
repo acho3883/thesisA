@@ -1,0 +1,7 @@
+PSQL
+
+To load SQL File into the local machine:
+1. Create new database on pgAdmin3.
+2. Open up SQL Shell. Connect to local host, enter the database name I've created, connect to port 5432.
+3. Once connected, enter the following command to import the file:
+    \i 'F:\study/usyd/y4/thesis/sanitized (2).sql/sanitized.sqp
