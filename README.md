@@ -39,3 +39,6 @@ WEEK 5
 3.	I also looked into another table with details on video links, visibility, and purpose of posting it. Phil told me there was a           benchmark time to track whether students have watched the video. There was only one column indicating view time, which I’m not sure     whether it’s the benchmark or average students’ view time. There are also created and modified time which I suspected are start         viewing time and end viewing time. However, some of the modified time are before created time, proving my prediction wrong.             (refer core_stories)
 4.	Found some possible missing data and non-useful tables (refer potential missing data)
 5.  Wrote to make appointment with Intersective but they haven't got back to me.
+
+WEEK 6
+1. I have extracted rows referring only to practera website and studied the relationship of it with its URI. The extracted data only        include activities from year 2015 to 2016, supporting my idea of the inexistence of a unified learning platform some time before.        There are actions by 2 groups of people, admin and participants. What I can do next is to separate admin actions and participant        actions for further analysis.
