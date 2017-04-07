@@ -34,5 +34,8 @@ WEEK 4
 3. Made notes on what the tables are, and what information they hold
 
 WEEK 5
-1. Identify useful tables to monitor user activities/ behaviour
-2. Identify weblinks on the learning environment
+1.	Listed possible weblinks on Practera by clicking in one by one, then classify them by similar addresses (refer dissect url)
+2.	Looked into the table with user logs. It turns out that the refer weblinks on that table contains not only Practera links, but also     other email hosts. Many of them are from China. (refer dissect url)
+3.	I also looked into another table with details on video links, visibility, and purpose of posting it. Phil told me there was a           benchmark time to track whether students have watched the video. There was only one column indicating view time, which I’m not sure     whether it’s the benchmark or average students’ view time. There are also created and modified time which I suspected are start         viewing time and end viewing time. However, some of the modified time are before created time, proving my prediction wrong.             (refer core_stories)
+4.	Found some possible missing data and non-useful tables (refer potential missing data)
+5.  Wrote to make appointment with Intersective but they haven't got back to me.
