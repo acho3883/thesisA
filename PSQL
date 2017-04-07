@@ -17,3 +17,10 @@ VIEW SORTED DATA IN QUERY TOOL: https://www.pgadmin.org/docs/dev/query.html
     FROM        "table_name"
     ORDER BY    "column_name"
 """""""""""""""""""""""""""""""""
+
+FILTER OUT ROWS THAT CONTAIN 'aaa' substring: https://www.postgresql.org/message-id/81Jun28.170305edt.35713@gateway.lee.k12.nc.us
+"""""""""""""""""""""""""""""""""""""""""
+SELECT      *
+FROM        "table_name"
+WHERE       "column_name" LIKE '%aaa%'
+"""""""""""""""""""""""""""""""""""""""""
