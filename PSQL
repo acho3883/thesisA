@@ -38,3 +38,25 @@ SELECT *
 FROM core_stories
 WHERE DATE(created) >= '2015-01-01'
 """"""""""""""""""""""""""""""""""""""
+
+ORDER IN ASCENDING ORDER: https://www.tutorialspoint.com/postgresql/postgresql_order_by.htm
+""""""""""""""""""""""""""""""""""""
+SELECT *
+FROM core_stories
+WHERE author_id > 3393
+ORDER BY author_id ASC
+""""""""""""""""""""""""""""""""""""
+
+COMPARE DATA BETWEEN 2 TABLES: http://stackoverflow.com/questions/15938180/sql-check-if-entry-in-table-a-exists-in-table-b
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+SELECT DISTINCT author_id
+FROM core_stories
+WHERE DATE(created) >= '2015-03-09' AND DATE(created) <= '2016-03-24'
+AND EXISTS
+(
+SELECT DISTINCT user_id
+FROM core_user_action_logs
+WHERE refer LIKE '%practera%%admin%'
+)
+ORDER BY author_id ASC
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
