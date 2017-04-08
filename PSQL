@@ -18,6 +18,13 @@ VIEW SORTED DATA IN QUERY TOOL: https://www.pgadmin.org/docs/dev/query.html
     ORDER BY    "column_name"
 """""""""""""""""""""""""""""""""
 
+COUNT NUMBER OF DISTINCT DATA
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+SELECT count(DISTINCT user_id)
+FROM core_user_action_logs
+WHERE refer LIKE '%practera%' AND refer NOT LIKE '%admin%'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 FILTER OUT ROWS THAT CONTAIN 'aaa' substring: https://www.postgresql.org/message-id/81Jun28.170305edt.35713@gateway.lee.k12.nc.us
 """""""""""""""""""""""""""""""""""""""""
 SELECT      *
