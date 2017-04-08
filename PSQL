@@ -31,3 +31,10 @@ SELECT      *
 FROM        "table_name"
 WHERE       "column_name" LIKE '%aaa%'
 """""""""""""""""""""""""""""""""""""""""
+
+LIST DATA AFTER CERTAIN TIMESTAMP: http://stackoverflow.com/questions/10483123/how-to-compare-timestamp-dates-with-date-only-parameter-in-mysql
+""""""""""""""""""""""""""""""""""""""
+SELECT *
+FROM core_stories
+WHERE DATE(created) >= '2015-01-01'
+""""""""""""""""""""""""""""""""""""""
