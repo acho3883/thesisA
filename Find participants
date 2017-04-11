@@ -1,0 +1,6 @@
+SELECT id
+FROM core_users 
+INTERSECT
+SELECT user_id
+FROM core_team_members
+ORDER BY id ASC
