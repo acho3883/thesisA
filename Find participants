@@ -1,6 +1,9 @@
-SELECT id
+-- Extract users by date --
+SELECT DISTINCT id
 FROM core_users 
 INTERSECT
-SELECT user_id
+SELECT DISTINCT user_id
 FROM core_team_members
 ORDER BY id ASC
+
+-- Extract participants --
