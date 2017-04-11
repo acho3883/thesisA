@@ -4,6 +4,10 @@ FROM core_users
 INTERSECT
 SELECT DISTINCT user_id
 FROM core_team_members
-ORDER BY id ASC
 
 -- Extract participants --
+EXCEPT
+SELECT      DISTINCT user_id
+FROM        core_user_action_logs
+WHERE       uri LIKE '%admin%'
+ORDER BY    id ASC
