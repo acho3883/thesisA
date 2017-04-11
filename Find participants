@@ -1,9 +1,16 @@
--- Extract users by date --
+-- List with all users --
 SELECT DISTINCT id
 FROM core_users 
+
+-- Extract users with groups --
 INTERSECT
 SELECT DISTINCT user_id
 FROM core_team_members
+
+-- Eliminate non-existing users --
+INTERSECT
+SELECT DISTINCT user_id
+FROM core_user_action_logs
 
 -- Extract participants --
 EXCEPT
