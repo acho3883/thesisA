@@ -1,9 +1,10 @@
--- List with all users --
-SELECT DISTINCT id
-FROM core_users 
+-- List with all user profiles when conditions met --
+SELECT *
+FROM core_user_profiles
 
+WHERE core_user_profiles.user_id IN
+(
 -- Extract users with groups --
-INTERSECT
 SELECT DISTINCT user_id
 FROM core_team_members
 
@@ -17,4 +18,6 @@ EXCEPT
 SELECT      DISTINCT user_id
 FROM        core_user_action_logs
 WHERE       uri LIKE '%admin%'
-ORDER BY    id ASC
+)
+
+ORDER BY user_id ASC
