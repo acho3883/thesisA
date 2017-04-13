@@ -21,3 +21,17 @@ WHERE       uri LIKE '%admin%'
 )
 
 ORDER BY user_id ASC
+
+----------------------------------------------------------------------------------
+-- Match groups to programs --
+SELECT core_team_members.team_id, core_team_members.user_id, core_team_members.created, core_teams.program_id
+FROM core_team_members, core_teams
+
+WHERE core_team_members.team_id IN
+(
+SELECT id
+FROM core_teams
+)
+AND
+core_team_members.team_id = core_teams.id
+ORDER BY core_team_members.team_id
