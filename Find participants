@@ -1,5 +1,5 @@
 -- List with all user profiles when conditions met --
-SELECT *
+SELECT user_id, gender, nationality, timezone, interests
 FROM core_user_profiles
 
 WHERE core_user_profiles.user_id IN
