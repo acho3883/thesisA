@@ -60,3 +60,9 @@ WHERE refer LIKE '%practera%%admin%'
 )
 ORDER BY author_id ASC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+TO FIND DUPLICATES: https://www.postgresql.org/message-id/6ABD3730-E7BC-11D7-8C53-0003930C11A0@inligo.com
+SELECT user_id, count(*)
+FROM core_team_members
+GROUP BY user_id
+HAVING count(*) = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
