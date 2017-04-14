@@ -1,60 +1,7 @@
 -- List with all user profiles when conditions met --
-SELECT *
-FROM core_user_profiles
-
-WHERE core_user_profiles.user_id IN
-(
--- Extract users with groups --
-SELECT DISTINCT user_id
-FROM core_team_members
-
--- Eliminate non-existing users --
-INTERSECT
-SELECT DISTINCT user_id
-FROM core_user_action_logs
-
--- Extract participants --
-EXCEPT
-SELECT      DISTINCT user_id
-FROM        core_user_action_logs
-WHERE       uri LIKE '%admin%'
-)
-
-ORDER BY user_id ASC
-
-----------------------------------------------------------------------------------
--- Match groups to programs, experiences, and institutions --
-SELECT 	core_team_members.team_id, core_team_members.user_id,
-      	core_programs.id, core_programs.name AS program_name, 
-	      core_institutions.name AS institution_name,
-	      core_programs.experience_id,
-	      core_experiences.name AS experience_name
-FROM    core_team_members, core_teams, core_programs, core_institutions, core_experiences
-
-WHERE core_team_members.team_id IN
-(
-SELECT id
-FROM core_teams
-)
-AND
--- Match teams --
-core_team_members.team_id = core_teams.id
-AND
--- Match programs --
-core_teams.program_id = core_programs.id
-AND
--- Match institutions --
-core_institutions.id = core_programs.institution_id
-AND
--- Match experiences --
-core_experiences.id = core_programs.experience_id
-
-ORDER BY core_team_members.team_id
-----------------------------------------------------------------------------------------------------
--- List with all user profiles when conditions met --
 SELECT 	core_user_profiles.user_id, gender, nationality, timezone, interests,
-	core_team_members.team_id, core_team_members.user_id,
-      	core_programs.id, core_programs.name AS program_name, 
+	core_team_members.team_id,
+      	core_programs.id AS program_id, core_programs.name AS program_name, 
 	core_institutions.name AS institution_name,
 	core_programs.experience_id,
 	core_experiences.name AS experience_name
@@ -63,12 +10,7 @@ FROM 	core_user_profiles,
 
 WHERE core_user_profiles.user_id IN
 (
--- Extract users with groups --
-SELECT DISTINCT user_id
-FROM core_team_members
-
 -- Eliminate non-existing users --
-INTERSECT
 SELECT DISTINCT user_id
 FROM core_user_action_logs
 
@@ -79,13 +21,18 @@ FROM        core_user_action_logs
 WHERE       uri LIKE '%admin%'
 )
 
-AND
--- Match groups to programs --
-core_team_members.team_id IN
+-- Eliminate multiple team users --
+AND core_user_profiles.user_id NOT IN
 (
-SELECT id
-FROM core_teams
+SELECT user_id -- SELECT item_id, name, slug perhaps?
+FROM core_team_members
+GROUP BY user_id
+HAVING count(*) > 1
 )
+
+-- Match profiles --
+AND
+core_team_members.user_id = core_user_profiles.user_id
 AND
 -- Match teams --
 core_team_members.team_id = core_teams.id
@@ -98,7 +45,5 @@ core_institutions.id = core_programs.institution_id
 AND
 -- Match experiences --
 core_experiences.id = core_programs.experience_id
-AND
--- Match user --
-core_team_members.user_id = core_user_profiles.user_id
-ORDER BY core_team_members.user_id
+
+ORDER BY core_user_profiles.user_id
