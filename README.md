@@ -41,8 +41,13 @@ WEEK 5
 5.  Wrote to make appointment with Intersective but they haven't got back to me.
 
 WEEK 6
-1. I have extracted rows referring only to practera website and studied the relationship of it with its URI. The extracted data only        include activities from year 2015 to 2016, supporting my idea of the inexistence of a unified learning platform some time before.        There are actions by 2 groups of people, admin and participants. What I can do next is to separate admin actions and participant        actions for further analysis.
-2. I have extracted a list of participants based on a few asseumptions:
+1. Extracted rows referring only to practera website and studied the relationship of it with its URI. The extracted data only        include activities from year 2015 to 2016, supporting my idea of the inexistence of a unified learning platform some time before.        There are actions by 2 groups of people, admin and participants. What I can do next is to separate admin actions and participant        actions for further analysis.
+2. Extracted a list of participants based on a few asseumptions:
     (a) All participants were grouped
     (b) All participants' actions were recorded in the action logs
     (c) Anyone who did not log on to Practera using admin accounts are considered as ordinary participants.
+
+MID-SEMESTER BREAK
+1. Mapped all team members to their teams, programs, institutions, and experiences.
+2. Linked participants to participant profiles and team details.
+3. Eliminated participants with multiple groups, assuming they are mentors.
