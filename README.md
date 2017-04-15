@@ -52,3 +52,4 @@ MID-SEMESTER BREAK
 2. Linked participants to participant profiles and team details.
 3. Eliminated participants with multiple groups, assuming they are mentors.
 4. Found that core_stats contains data regarding survey when I first open Practera. Indicated stats_id are 1-6, but team_stats range 1-11; hence not sure what they mean exactly, and how they derive the percentage.
+5. Team 249 is an analytic team of 6, created 2015. It could be a team formed to analyse NEXT/ Practera at the early stage.
