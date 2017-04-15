@@ -51,3 +51,4 @@ MID-SEMESTER BREAK
 1. Mapped all team members to their teams, programs, institutions, and experiences.
 2. Linked participants to participant profiles and team details.
 3. Eliminated participants with multiple groups, assuming they are mentors.
+4. Found that core_stats contains data regarding survey when I first open Practera.
