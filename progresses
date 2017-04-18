@@ -1,0 +1,7 @@
+SELECT 	subject_id, 
+	model_id, model,
+	property
+
+FROM 	achieve_progresses
+
+ORDER BY model_id, subject_id
