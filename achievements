@@ -1,7 +1,7 @@
 SELECT 	achieve_user_achievements.achievement_id, achieve_achievements.name AS achievement_name,
 	achieve_user_achievements.user_id,
 	achieve_achievements.model_id, achieve_achievements.model,
-	achieve_user_achievements.progress
+	achieve_user_achievements.progress, status
 
 FROM 	achieve_user_achievements, achieve_achievements
 
