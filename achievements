@@ -1,0 +1,15 @@
+SELECT 	achieve_user_achievements.achievement_id, achieve_achievements.name AS achievement_name,
+	achieve_user_achievements.user_id,
+	achieve_achievements.model_id, achieve_achievements.model,
+	achieve_user_achievements.progress
+
+FROM 	achieve_user_achievements, achieve_achievements
+
+WHERE
+achieve_achievements.id = achieve_user_achievements.achievement_id
+AND
+achieve_achievements.id != -1
+AND
+achieve_achievements.model NOT LIKE '%Placeholder%'
+
+ORDER BY achievement_id
