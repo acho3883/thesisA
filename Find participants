@@ -22,12 +22,12 @@ WHERE       uri LIKE '%admin%'
 )
 
 -- Eliminate multiple team users --
-AND core_user_profiles.user_id NOT IN
+AND core_user_profiles.user_id IN
 (
-SELECT user_id -- SELECT item_id, name, slug perhaps?
+SELECT user_id
 FROM core_team_members
 GROUP BY user_id
-HAVING count(*) > 1
+HAVING count(*) = 1
 )
 
 -- Match profiles --
