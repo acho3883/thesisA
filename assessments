@@ -2,7 +2,7 @@
 SELECT 	assess_assessment_submissions.submitter_id, assess_assessment_submissions.team_id,
 	assess_assessment_submissions.program_id, assess_assessment_submissions.activity_id,
 	assess_assessment_submissions.assessment_id, assess_assessments.name AS assessment_name,
-	assess_assessment_submissions.status, assess_assessment_submissions.score
+	assess_assessment_submissions.status, assess_assessment_submissions.score, assess_assessment_submissions.moderated_score
 FROM 	core_user_profiles,
 	core_team_members, core_teams, core_programs, core_institutions, core_experiences,
 	assess_assessment_submissions, assess_assessments
