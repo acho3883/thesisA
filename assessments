@@ -1,7 +1,7 @@
--- List with all user profiles when conditions met --
+-- List with all results/submissions of participants --
 SELECT 	assess_assessment_submissions.submitter_id, assess_assessment_submissions.team_id,
 	assess_assessment_submissions.program_id, assess_assessment_submissions.activity_id,
-	assess_assessment_submissions.assessment_id, assess_assessments.name AS assessment_name,
+	assess_assessment_submissions.assessment_id, assess_assessments.name AS assessment_name, assess_assessments.assessment_type,
 	assess_assessment_submissions.status, assess_assessment_submissions.score, assess_assessment_submissions.moderated_score
 FROM 	core_user_profiles,
 	core_team_members, core_teams, core_programs, core_institutions, core_experiences,
@@ -39,6 +39,7 @@ core_experiences.id = core_programs.experience_id
 AND
 core_user_profiles.user_id = assess_assessment_submissions.submitter_id
 AND
+-- Match assessment id
 assess_assessment_submissions.assessment_id = assess_assessments.id
 
 ORDER BY assess_assessment_submissions.assessment_id
