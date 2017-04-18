@@ -1,15 +1,62 @@
-SELECT 	achieve_user_achievements.achievement_id, achieve_achievements.name AS achievement_name,
-	achieve_user_achievements.user_id,
-	achieve_achievements.model_id, achieve_achievements.model,
-	achieve_user_achievements.progress, status
+-- List with all user profiles when conditions met --
+SELECT 	core_user_profiles.user_id, gender, nationality, timezone, interests,
+	core_team_members.team_id,
+      	core_programs.id AS program_id, core_programs.name AS program_name, 
+	core_institutions.name AS institution_name,
+	core_programs.experience_id,
+	core_experiences.name AS experience_name
+	--achieve_user_achievements.achievement_id, achieve_achievements.name AS achievement_name,
+	--achieve_achievements.model_id, achieve_achievements.model,
+	--achieve_user_achievements.progress, achieve_user_achievements.status
 
-FROM 	achieve_user_achievements, achieve_achievements
+FROM 	core_user_profiles,
+	core_team_members, core_teams, core_programs, core_institutions, core_experiences,
+	achieve_user_achievements, achieve_achievements
 
-WHERE
+WHERE core_user_profiles.user_id IN
+(
+-- Eliminate non-existing users --
+SELECT DISTINCT user_id
+FROM core_user_action_logs
+
+-- Extract participants --
+EXCEPT
+SELECT      DISTINCT user_id
+FROM        core_user_action_logs
+WHERE       uri LIKE '%admin%'
+)
+
+-- Eliminate multiple team users --
+AND core_user_profiles.user_id IN
+(
+SELECT user_id
+FROM core_team_members
+GROUP BY user_id
+HAVING count(*) = 1
+)
+
+-- Match profiles --
+AND
+core_team_members.user_id = core_user_profiles.user_id
+AND
+-- Match teams --
+core_team_members.team_id = core_teams.id
+AND
+-- Match programs --
+core_teams.program_id = core_programs.id
+AND
+-- Match institutions --
+core_institutions.id = core_programs.institution_id
+AND
+-- Match experiences --
+core_experiences.id = core_programs.experience_id
+AND
+core_user_profiles.user_id = achieve_user_achievements.user_id
+AND
 achieve_achievements.id = achieve_user_achievements.achievement_id
 AND
 achieve_achievements.id != -1
 AND
 achieve_achievements.model NOT LIKE '%Placeholder%'
 
-ORDER BY achievement_id
+ORDER BY core_user_profiles.user_id
