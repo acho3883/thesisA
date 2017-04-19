@@ -1,33 +1,31 @@
 -- List with all user profiles when conditions met --
-SELECT 	core_user_profiles.user_id, gender, nationality, timezone, interests,
-	core_team_members.team_id,
-      	core_programs.id AS program_id, core_programs.name AS program_name, 
-	core_institutions.name AS institution_name,
-	core_programs.experience_id,
-	core_experiences.name AS experience_name
+SELECT DISTINCT	core_user_profiles.user_id,
+		core_team_members.team_id,
+		core_programs.name AS program_name, 
+		core_institutions.name AS institution_name,
+		core_experiences.name AS experience_name
+	
 FROM 	core_user_profiles,
 	core_team_members, core_teams, core_programs, core_institutions, core_experiences
-
+	
 WHERE core_user_profiles.user_id IN
 (
 -- Eliminate non-existing users --
-SELECT DISTINCT user_id
+SELECT user_id
 FROM core_user_action_logs
 
--- Extract participants --
-EXCEPT
-SELECT      DISTINCT user_id
-FROM        core_user_action_logs
-WHERE       uri LIKE '%admin%'
-)
-
--- Eliminate multiple team users --
-AND core_user_profiles.user_id IN
-(
+-- Eliminate users with multiple teams --
+INTERSECT
 SELECT user_id
 FROM core_team_members
 GROUP BY user_id
 HAVING count(*) = 1
+
+-- Eliminate admins --
+except
+SELECT      user_id
+FROM        core_user_action_logs
+WHERE       uri LIKE '%admin%'
 )
 
 -- Match profiles --
@@ -44,6 +42,6 @@ AND
 core_institutions.id = core_programs.institution_id
 AND
 -- Match experiences --
-core_experiences.id = core_programs.experience_id
+core_experiences.id = core_user_profiles.current_experience_id
 
-ORDER BY core_user_profiles.user_id
+ORDER BY core_team_members.team_id, core_user_profiles.user_id
