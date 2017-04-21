@@ -48,8 +48,17 @@ WEEK 6
     (c) Anyone who did not log on to Practera using admin accounts are considered as ordinary participants.
 
 MID-SEMESTER BREAK
-1. Mapped all team members to their teams, programs, institutions, and experiences.
-2. Linked participants to participant profiles and team details.
-3. Eliminated participants with multiple groups, assuming they are mentors.
-4. Found that core_stats contains data regarding survey when I first open Practera. Indicated stats_id are 1-6, but team_stats range 1-11; hence not sure what they mean exactly, and how they derive the percentage.
-5. Team 249 is an analytic team of 6, created 2015. It could be a team formed to analyse NEXT/ Practera at the early stage.
+1.	Mapped all team members to their teams, programs, institutions, and experiences.
+2.	Linked participants to participant profiles and team details. I attempted to do that using 2 methods. The first one using   current_team_id in the user_profile table, in which many of them are NULL. Second one using team_id in the team table. Both gave me different outputs. There's created time on the team table but there's no created time on profile table so I couldn't make comparison.
+3.	Eliminated participants with multiple groups, assuming they are mentors.
+4.	Found that core_stats contains data regarding survey when I first open Practera. Indicated stats_id are 1-6, but team_stats range 1-11; hence not sure what they mean exactly, and how they derive the percentage. The actual survey that I need to answer has only 3 questions and they are same every time I open.
+5.	It was found out that the analytic teams were recorded as participants, I included those because that could be part of their project.
+6.	I have also linked the participants to assessment results, achievements, and progresses. Achievements output is left with 30 entries, which I doubt they are correct. It could be some 'NULL' column here and there, and my code somehow eliminated those entries.
+
+#############################################################################
+QUESTIONS FOR INTERSECTIVE
+
+1. Are students allowed to join the programs multiple times?If possible, do they use their existing accounts and just registerd to different groups?
+2. Are mentors using admin accounts or regular participant accounts?
+3. There are 3 tables with model_id but they don't seem to be relatable to each other: achieve_achievement_conditions, achieve_achievement, and achieve_progresses. There are some everlaps but most of them are eiher completely different, or different models sharing same model_id. Do you have any idea how to relate them?
+#############################################################################
