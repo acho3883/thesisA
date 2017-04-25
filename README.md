@@ -62,3 +62,8 @@ QUESTIONS FOR INTERSECTIVE
 2. Are mentors using admin accounts or regular participant accounts?
 3. There are 3 tables with model_id but they don't seem to be relatable to each other: achieve_achievement_conditions, achieve_achievement, and achieve_progresses. There are some everlaps but most of them are eiher completely different, or different models sharing same model_id. Do you have any idea how to relate them?
 #############################################################################
+
+WEEK7
+1. Explored different participant filtering options.
+2. Database corrupted. Reimported to a new workspace.
+3. Discussion with Intersective.
