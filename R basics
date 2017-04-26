@@ -1,0 +1,23 @@
+TO ACCESS COLUMN
+table_name$column_name
+_______________________________________
+TO RUN QUERIES
+a <- subset(table_name, age > 18)
+_____________________________________________
+STATS AVERAGE
+MEAN:     mean(table_name$column_name)
+MEDIAN:   median(table_name$column_name)
+QUANTILE: quantile(table_name$column_name)
+VARIANCE: var(table_name$column_name)
+STD:      sd(table_name$column_name)
+_____________________________________________
+SCATTER PLOT
+plot(x = table_name$column_name, y = table_name$column_name, type'p')
+** type p as point, type L as line **
+______________________________________________________________________
+HISTOGRAM
+hist(table_name$column_name)
+________________________________
+BAR
+counts<-table(table_name$column_name)
+barplot(counts, main="title_name", xlab="x_axis_name")
