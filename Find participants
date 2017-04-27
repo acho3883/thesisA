@@ -50,6 +50,7 @@ AND	core_programs.experience_id = core_experiences.id
 ORDER BY core_team_members.team_id
 
 _______________________________________________________________________________________________________________________
+-- Filter out mentors --
 SELECT *
 FROM participants
 WHERE user_id IN
