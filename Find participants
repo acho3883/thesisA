@@ -1,3 +1,21 @@
+CREATE TABLE participants(
+	id serial NOT NULL,
+	user_id integer,
+	institution_name text,
+	team_id integer,
+	team_name text,
+	program_id integer,
+	program_name text,
+	timeline_id integer,
+	timeline_name character varying,
+	project_id integer,
+	project_name character varying(128),
+	experience_id integer,
+	experience_name text
+);
+
+INSERT INTO participants(user_id, institution_name, team_id, team_name, program_id, program_name, timeline_id, timeline_name, project_id, project_name, experience_id, experience_name)
+
 SELECT	core_enrolments.user_id, core_institutions.name AS institution_name,
 	core_team_members.team_id, core_teams.name AS team_name,
 	core_enrolments.program_id, core_programs.name AS program_name,
@@ -13,16 +31,8 @@ FROM	core_enrolments, core_licenses, core_institutions,
 WHERE	core_enrolments.user_id IS NOT NULL
 -- Match license --
 AND	core_enrolments.license_id = core_licenses.id
--- Extract participants
+-- Extract participants --
 AND	core_licenses.role LIKE 'participant'
--- Eliminate mentors --
-AND	core_enrolments.user_id IN
-	(
-	SELECT holder_id
-	FROM core_licenses
-	GROUP BY holder_id
-	HAVING count(*) = 1
-	)
 --Match institution --
 AND	core_programs.institution_id = core_institutions.id
 --Match team --
@@ -38,3 +48,14 @@ AND	project_timelines.project_id = project_projects.id
 AND	core_programs.experience_id = core_experiences.id
 
 ORDER BY core_team_members.team_id
+
+_______________________________________________________________________________________________________________________
+SELECT *
+FROM participants
+WHERE user_id IN
+(
+SELECT user_id
+FROM participants
+GROUP BY user_id
+HAVING count(DISTINCT team_id) = count(DISTINCT program_id)
+)
