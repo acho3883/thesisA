@@ -67,3 +67,9 @@ WEEK7
 1. Explored different participant filtering options.
 2. Database corrupted. Reimported to a new workspace.
 3. Discussion with Intersective.
+4. Retrieved new list of participants, but yet to figure out how to filter out mentors.
+5. Start writing scripts for basic plots in R.
+##########################################################################################################
+
+WEEK 8
+1. 
