@@ -1,23 +1,81 @@
--- List with all user profiles when conditions met --
-SELECT user_id, gender, nationality, timezone, interests
-FROM core_user_profiles
+CREATE TABLE participants(
+	id serial NOT NULL,
+	user_id integer,
+	institution_name text,
+	team_id integer,
+	team_name text,
+	program_id integer,
+	program_name text,
+	timeline_id integer,
+	timeline_name character varying,
+	project_id integer,
+	project_name character varying(128),
+	experience_id integer,
+	experience_name text
+);
 
-WHERE core_user_profiles.user_id IN
-(
--- Extract users with groups --
-SELECT DISTINCT user_id
-FROM core_team_members
+INSERT INTO participants(user_id, institution_name, team_id, team_name, program_id, program_name, timeline_id, timeline_name, project_id, project_name, experience_id, experience_name)
 
--- Eliminate non-existing users --
-INTERSECT
-SELECT DISTINCT user_id
-FROM core_user_action_logs
+SELECT	core_enrolments.user_id, core_institutions.name AS institution_name,
+	core_team_members.team_id, core_teams.name AS team_name,
+	core_enrolments.program_id, core_programs.name AS program_name,
+	core_enrolments.timeline_id, project_timelines.title AS timeline_name,
+	project_timelines.project_id, project_projects.name AS project_name,
+	core_programs.experience_id, core_experiences.name AS experience_name
 
+FROM	core_enrolments, core_licenses, core_institutions,
+	core_team_members, core_teams,
+	core_programs, project_timelines,
+	project_projects, core_experiences
+
+WHERE	core_enrolments.user_id IS NOT NULL
+-- Match license --
+AND	core_enrolments.license_id = core_licenses.id
 -- Extract participants --
-EXCEPT
-SELECT      DISTINCT user_id
-FROM        core_user_action_logs
-WHERE       uri LIKE '%admin%'
+AND	core_licenses.role LIKE 'participant'
+--Match institution --
+AND	core_programs.institution_id = core_institutions.id
+--Match team --
+AND	core_enrolments.user_id = core_team_members.user_id
+AND	core_team_members.team_id = core_teams.id	
+-- Match program --
+AND	core_enrolments.program_id = core_programs.id
+-- Match timeline --
+AND	core_enrolments.timeline_id = project_timelines.id
+-- Match project --
+AND	project_timelines.project_id = project_projects.id
+-- Match experience --
+AND	core_programs.experience_id = core_experiences.id
+
+ORDER BY core_team_members.team_id
+
+-----------------------------------------------------------------------------------
+CREATE TABLE participants_290417(
+	id serial NOT NULL,
+	user_id integer,
+	institution_name text,
+	team_id integer,
+	team_name text,
+	program_id integer,
+	program_name text,
+	timeline_id integer,
+	timeline_name character varying,
+	project_id integer,
+	project_name character varying(128),
+	experience_id integer,
+	experience_name text
+);
+
+INSERT INTO participants_290417(user_id, institution_name, team_id, team_name, program_id, program_name, timeline_id, timeline_name, project_id, project_name, experience_id, experience_name)
+
+SELECT user_id, institution_name, team_id, team_name, program_id, program_name, timeline_id, timeline_name, project_id, project_name, experience_id, experience_name
+FROM participants
+WHERE user_id IN
+(
+SELECT user_id
+FROM participants
+GROUP BY user_id
+having count(team_id)<=count(DISTINCT program_id)
 )
 
-ORDER BY user_id ASC
+ORDER BY program_id, team_id, user_id
