@@ -1,45 +1,60 @@
--- List with all results/submissions of participants --
-SELECT 	assess_assessment_submissions.submitter_id, assess_assessment_submissions.team_id,
-	assess_assessment_submissions.program_id, assess_assessment_submissions.activity_id,
-	assess_assessment_submissions.assessment_id, assess_assessments.name AS assessment_name, assess_assessments.assessment_type,
-	assess_assessment_submissions.status, assess_assessment_submissions.score, assess_assessment_submissions.moderated_score
-FROM 	core_user_profiles,
-	core_team_members, core_teams, core_programs, core_institutions, core_experiences,
-	assess_assessment_submissions, assess_assessments
+CREATE TABLE submissions(
+	id serial NOT NULL,
+	submitter_id integer,
+	team_id integer,
+	team_name text,
+	program_id integer,
+	program_name text,
+	activity_id integer,
+	assessment_id integer,
+	created timestamp without time zone,
+	modified timestamp without time zone,
+	status character varying(50),
+	submitted timestamp without time zone,
+	score double precision,
+	moderated_score double precision
+);
 
-WHERE core_user_profiles.user_id IN
-(
-SELECT DISTINCT user_id
-FROM core_user_action_logs
+INSERT INTO submissions(submitter_id, team_id, team_name, program_id, program_name, activity_id, assessment_id, created, modified, status, submitted, score, moderated_score)
 
-EXCEPT
-SELECT      DISTINCT user_id
-FROM        core_user_action_logs
-WHERE       uri LIKE '%admin%'
-)
+SELECT 	submitter_id, participants_290417.team_id, participants_290417.team_name,
+	assess_assessment_submissions.program_id, participants_290417.program_name,
+	assess_assessment_submissions.activity_id, assess_assessment_submissions.assessment_id,
+	assess_assessment_submissions.created, assess_assessment_submissions.modified, assess_assessment_submissions.status,
+	assess_assessment_submissions.submitted, 
+	assess_assessment_submissions.score, assess_assessment_submissions.moderated_score
+	
+FROM assess_assessment_submissions, participants_290417
 
-AND core_user_profiles.user_id IN
+WHERE submitter_id IN
 (
 SELECT user_id
-FROM core_team_members
-GROUP BY user_id
-HAVING count(*) = 1
+FROM participants_290417
+
+)
+AND
+participants_290417.user_id = assess_assessment_submissions.submitter_id
+AND
+assess_assessment_submissions.program_id = participants_290417.program_id
+AND
+(
+assess_assessment_submissions.team_id = participants_290417.team_id
+OR
+assess_assessment_submissions.team_id IS NULL
 )
 
-AND
-core_team_members.user_id = core_user_profiles.user_id
-AND
-core_team_members.team_id = core_teams.id
-AND
-core_teams.program_id = core_programs.id
-AND
-core_institutions.id = core_programs.institution_id
-AND
-core_experiences.id = core_programs.experience_id
-AND
-core_user_profiles.user_id = assess_assessment_submissions.submitter_id
-AND
--- Match assessment id
-assess_assessment_submissions.assessment_id = assess_assessments.id
+ORDER BY submitter_id, assessment_id
 
-ORDER BY assess_assessment_submissions.assessment_id
+--------------------------------------------------------------------------------------------------------------------------------------
+SELECT	submissions.submitter_id, submissions.team_id, submissions.team_name,
+	submissions.program_id, submissions.program_name,
+	assess_assessments.experience_id, core_experiences.name AS experience_name,
+	submissions.activity_id, project_activities.name AS activity_name,
+	submissions.assessment_id, assess_assessments.name AS assessment_name, assess_assessments.assessment_type,
+	submissions.created, submissions.modified, submissions.status, submissions.submitted,
+	assess_assessments.score_type, round(CAST(submissions.score as numeric),2), round(CAST(submissions.moderated_score as numeric),2)
+FROM	submissions, assess_assessments, core_experiences, project_activities
+WHERE	submissions.assessment_id = assess_assessments.id
+AND	assess_assessments.experience_id = core_experiences.id
+AND	submissions.activity_id = project_activities.id
+ORDER BY submitter_id, assessment_id
