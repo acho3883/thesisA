@@ -73,3 +73,4 @@ WEEK7
 
 WEEK 8
 1. Retrieved new list of participants, stored in 'new' database and csv. Filtered mentors.  (PARTICIPANTS_290417)
+2. Retrived basic submission details with few things to note on. Same participants of same team have different experiences and programs in different tables.
