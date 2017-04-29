@@ -72,4 +72,4 @@ WEEK7
 ##########################################################################################################
 
 WEEK 8
-1. Retrieved new list of participants, stored in 'new' database and csv. Filtered mentors.
+1. Retrieved new list of participants, stored in 'new' database and csv. Filtered mentors.  (PARTICIPANTS_290417)
