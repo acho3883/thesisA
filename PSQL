@@ -60,3 +60,8 @@ WHERE refer LIKE '%practera%%admin%'
 )
 ORDER BY author_id ASC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+SPLIT TO MULTIPLE COLUMNS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+SELECT	split_part("column_name", 'delimiter', field) model
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
